@@ -7,7 +7,7 @@ const CharectorDetail = (props) => {
   const { id } = useParams();
 
   useEffect(() => {
-    console.log(props)
+    // console.log(props)
     props.isFetchCompleted(false);
     props.getCharector(id);
   }, []);
