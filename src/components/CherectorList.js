@@ -3,13 +3,14 @@ import { connect } from "react-redux";
 import "../style.css"
 import { getCharectorList, isFetchCompleted } from "../action/index.js";
 import Listitem from "./listItem";
+import Dropdown from "./dropDown";
 
 // import history from "../history.js";
 
 class CharectorList extends React.Component {
   constructor(props){
     super(props)
-    this.state={currentPage:1}
+    this.state={currentPage:1,perPage:5}
   }
 
   componentDidMount() {
@@ -17,9 +18,12 @@ class CharectorList extends React.Component {
     this.props.getCharectorList();
   }
 
+  setPerPage=(perPage)=>{
+    this.setState({perPage:perPage})
+  }
 
   renderList () {
-  return <Listitem cherectorlist={this.props.cherectorlist.slice((10*this.state.currentPage)-10,(this.state.currentPage*10))}/>
+  return <Listitem cherectorlist={this.props.cherectorlist.slice((this.state.perPage*this.state.currentPage)-this.state.perPage,(this.state.currentPage*this.state.perPage))}/>
   }
 
   pageNoChange(e,action,noOfPage){
@@ -44,7 +48,7 @@ class CharectorList extends React.Component {
 
   renderPageNo=()=>{ 
 
-    const noOfPage = Math.ceil(this.props.cherectorlist.length/10)
+    const noOfPage = Math.ceil(this.props.cherectorlist.length/this.state.perPage)
     const pageNo = []
         for(let i =0; i<noOfPage; i++){
         pageNo.push(<li key={i} onClick={(e)=>{
@@ -65,7 +69,11 @@ class CharectorList extends React.Component {
   render() {
     // console.log(this.state)
     return (<React.Fragment>
-      <div>{Math.ceil(this.props.cherectorlist.length/10)>=1&&this.props.isFetchComplete?this.renderPageNo():null}</div>
+      <div className="row">
+        <div className="col">{Math.ceil(this.props.cherectorlist.length/this.state.perPage)>=1&&this.props.isFetchComplete?this.renderPageNo():null}</div>
+        <div className="col">{Math.ceil(this.props.cherectorlist.length/this.state.perPage)>=1&&this.props.isFetchComplete?<Dropdown perPage={this.state.perPage} setPerPage={this.setPerPage}/>:null}</div>
+        
+        </div>
     <div className="list-group">{this.props.isFetchComplete?this.renderList():'Loading...'}</div>
     </React.Fragment>
     );
