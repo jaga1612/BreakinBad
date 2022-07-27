@@ -20,7 +20,7 @@ const Dropdown = function (props) {
   const dropDownValue = () => {
     return props.dropDownValue.map((val) => {
       return (
-        <button
+        <li
           key={val}
           onClick={() => {
             setShow("");
@@ -30,7 +30,7 @@ const Dropdown = function (props) {
           type="button"
         >
           {val}
-        </button>
+        </li>
       );
     });
   };
@@ -45,11 +45,9 @@ const Dropdown = function (props) {
           }}
           type="button"
         >
-          {props.perPage}
+          {props.perPage} / Page
         </button>
-        <ul className={`dropdown-menu ${show}`}>
-          <li>{dropDownValue()}</li>
-        </ul>
+        <ul className={`dropdown-menu ${show}`}>{dropDownValue()}</ul>
       </div>
     </div>
   );

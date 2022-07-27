@@ -9,7 +9,11 @@ import Dropdown from "./dropDown";
 class CharectorList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { currentPage: 1, perPage: 5, dropDownValue: [5, 10, 20] };
+    this.state = {
+      currentPage: 1,
+      perPage: 5,
+      dropDownValue: [5, 10, 20],
+    };
   }
 
   componentDidMount() {
