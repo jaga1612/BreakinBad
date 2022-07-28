@@ -7,9 +7,12 @@ const CharectorDetail = (props) => {
   const { id } = useParams();
 
   useEffect(() => {
-    // console.log(props)
-    props.isFetchCompleted(false);
-    props.getCharector(id);
+    const initialLoad = function () {
+      // console.log(props)
+      props.isFetchCompleted(false);
+      props.getCharector(id);
+    };
+    initialLoad();
   }, []);
 
   const renderDetails = () => {
@@ -69,7 +72,7 @@ const mapStateToProps = (state) => {
   // console.log(state);
   return {
     isFetchComplete: state.isFetchCompleted,
-    cherector: state.charector[0]
+    cherector: state.charector[0],
   };
 };
 
